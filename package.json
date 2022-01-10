@@ -4,6 +4,7 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
+    "test": "echo 'No tests'",
     "start": "node src/index.js"
   },
   "dependencies": {
