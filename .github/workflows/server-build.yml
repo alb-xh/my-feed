@@ -24,7 +24,7 @@ jobs:
         cache: 'yarn'
 
     - name: Installing dependencies
-    - run: yarn
+      run: yarn
 
     - name: Running tests
-    - run: yarn test
+      run: yarn test
