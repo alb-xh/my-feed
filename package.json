@@ -4,6 +4,7 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "cd src/client && yarn",
     "build-client": "cd src/client && yarn build",
     "start": "yarn build-client && node src/index.js",
     "dev": "nodemon --ignore src/client/build/ --exec yarn start",
