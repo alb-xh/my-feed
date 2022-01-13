@@ -8,13 +8,14 @@
     "build-client": "cd src/client && yarn build",
     "start": "yarn build-client && node src/index.js",
     "dev": "nodemon --ignore src/client/build/ --exec yarn start",
-    "test-client": "cd src/client && yarn test -- --watchAll=false",
+    "test-client": "cd src/client && yarn test -- --watchAll=false --passWithNoTests",
     "test-server": "yarn build-client && jest ./src/server",
     "test": "yarn test-client && yarn test-server"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "react-router-dom": "^6.2.1"
   },
   "devDependencies": {
     "jest": "^27.4.7",

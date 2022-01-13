@@ -1,5 +1,5 @@
-import { getCustomClassName } from '../helpers';
-import { Title, TextInput, Button } from '../common';
+import { getCustomClassName } from '../../helpers';
+import { Title, TextInput, Button } from '../../common';
 
 export function Login (props) {
   return (
