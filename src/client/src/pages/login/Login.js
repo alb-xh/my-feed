@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { getCustomClassName } from '../../helpers';
 import { Title, TextInput, Button } from '../../common';
 
-export function Login (props) {
+export function Login(props) {
   return (
-    <div className={getCustomClassName(props, 'mx-auto table-caption')} >
+    <div className={getCustomClassName(props, 'mx-auto table-caption')}>
       <Title
         className='mt-24'
         text='Login'
@@ -30,4 +30,4 @@ export function Login (props) {
       </div>
     </div>
   );
-};
+}

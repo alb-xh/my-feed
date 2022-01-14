@@ -1,10 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '../hooks';
-import { NavigateTo } from './NavigateTo';
 
-
-export function RequireAuth (props) {
+export function RequireAuth(props) {
   const { user, getUser } = useUser();
   const navigate = useNavigate();
 
@@ -14,10 +12,10 @@ export function RequireAuth (props) {
     getUser()
       .catch(() => {
         navigate('/login');
-      })
+      });
 
     return null;
   }
 
   return children;
-};
+}

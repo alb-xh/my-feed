@@ -1,6 +1,6 @@
 import { getCustomClassName } from '../helpers';
 
-export function Button (props) {
+export function Button(props) {
   const {
     text,
     onClick,
@@ -8,10 +8,11 @@ export function Button (props) {
 
   return (
     <button
+      type='button'
       className={getCustomClassName(props, 'block')}
       onClick={onClick}
     >
       {text}
     </button>
   );
-};
+}

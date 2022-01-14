@@ -1,6 +1,6 @@
 import { getCustomClassName } from '../helpers';
 
-export function Title (props) {
+export function Title(props) {
   const { text } = props;
 
   return (
@@ -8,4 +8,4 @@ export function Title (props) {
       {text}
     </h1>
   );
-};
+}

@@ -1,6 +1,6 @@
 import { getCustomClassName } from '../helpers';
 
-export function TextInput (props) {
+export function TextInput(props) {
   const { label } = props;
 
   return (
@@ -12,4 +12,4 @@ export function TextInput (props) {
       />
     </div>
   );
-};
+}

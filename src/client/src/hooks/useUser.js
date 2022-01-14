@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ApiClient } from '../apiClient';
 
 export function useUser() {
-  const [ user, setUser ] = useState(null);
+  const [user, setUser] = useState(null);
 
   const getUser = async () => {
     const res = await ApiClient.getUser();
@@ -12,9 +12,9 @@ export function useUser() {
       throw new Error('No user session found!');
     }
 
-    const user = await res.json();
-    setUser(user);
-  }
+    const userData = await res.json();
+    setUser(userData);
+  };
 
-  return { user, getUser }
+  return { user, getUser };
 }
