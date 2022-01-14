@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useUser } from '../hooks';
+import { useUser } from '../user';
 
 export function RequireAuth(props) {
   const { user, getUser } = useUser();
