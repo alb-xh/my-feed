@@ -1,11 +1,11 @@
 
 export class ApiClient {
-  static baseUrl () {
+  static get baseUrl () {
     return new URL(window.location.href).origin;
   }
 
   static getUrl (path) {
-    return [ ApiClient.baseUrl, path ].join('/');
+    return ApiClient.baseUrl + path;
   }
 
   static async getUser () {

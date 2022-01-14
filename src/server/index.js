@@ -7,16 +7,6 @@ const BUILD_HTML_FILE = path.join(BUILD_FOLDER_PATH, 'index.html');
 
 app.use(express.static(BUILD_FOLDER_PATH));
 
-app.get([
-  '/',
-  '/login',
-  '/users',
-  '/signup',
-  '/feed',
-], (req, res) => {
-  res.sendFile(BUILD_HTML_FILE);
-});
-
 app.get('/user', (req, res) => {
   res
     .status(404)
@@ -24,9 +14,7 @@ app.get('/user', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res
-    .status(404)
-    .send('NOT FOUND');
+  res.sendFile(BUILD_HTML_FILE);
 });
 
 module.exports = app;

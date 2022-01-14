@@ -1,13 +1,22 @@
-import { useUserSession } from '../hooks';
+import { useNavigate } from 'react-router-dom';
+
+import { useUser } from '../hooks';
 import { NavigateTo } from './NavigateTo';
 
+
 export function RequireAuth (props) {
+  const { user, getUser } = useUser();
+  const navigate = useNavigate();
+
   const { children } = props;
-  const { user, fetching } = useUserSession();
 
   if (!user) {
-    if (fetching) return null;
-    return <NavigateTo to='/login' />;
+    getUser()
+      .catch(() => {
+        navigate('/login');
+      })
+
+    return null;
   }
 
   return children;

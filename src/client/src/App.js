@@ -5,6 +5,10 @@ import {
 } from 'react-router-dom';
 
 import {
+  useUser,
+} from './hooks'
+
+import {
   RequireAuth,
   NavigateTo,
 } from './common';
@@ -20,15 +24,17 @@ function App() {
     <div className='h-screen flex'>
        <BrowserRouter>
         <Routes>
-          <Route path='/login' element={ <Login />} />
-          <Route path='/signup' element={<SignUp />} />
-          <Route path='/feed' element={
+          <Route path='login' element={<Login />} />
+          <Route path='signup' element={<SignUp />} />
+          <Route
+            path='feed'
+            element={
               <RequireAuth>
                 <Feed />
               </RequireAuth>
             }
           />
-          <Route path='/' element={<NavigateTo to='/feed' /> } />
+          <Route path='*' element={<NavigateTo to='/feed' />} />
         </Routes>
       </BrowserRouter>
     </div>
