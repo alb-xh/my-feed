@@ -1,0 +1,83 @@
+name: Deploy CI
+
+on:
+  push:
+    branches: [ master ]
+
+env:
+  AWS_EC2_HOST: ec2-3-122-177-164.eu-central-1.compute.amazonaws.com
+  AWS_EC2_USERNAME: ubuntu
+  AWS_EC2_SSH_KEY: ${{ secrets.AWS_EC2_SSH_KEY }}
+
+  DOCKER_REGISTRY: ghcr.io
+  DOCKER_USERNAME: ${{ github.actor }}
+  DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+  DOCKER_IMAGE_NAME: ${{ github.repository }}
+  DOCKER_IMAGE_TAG: master
+  DOCKER_CONTAINER_NAME: my-feed-container
+
+  MY_FEED_SERVER_PORT: 80
+  MY_FEED_COOKIE_NAME: my-feed
+  MY_FEED_COOKIE_SECRET: ${{ secrets.MY_FEED_COOKIE_SECRET }}
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Log in to the Docker Container registry
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ env.DOCKER_REGISTRY }}
+        username: ${{ env.DOCKER_USERNAME }}
+        password: ${{ env.DOCKER_PASSWORD }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: SSH to EC2, pull image, restart container
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.AWS_EC2_HOST }}
+        username: ${{ env.AWS_EC2_USERNAME }}
+        key: ${{ env.AWS_EC2_SSH_KEY }}
+        script:
+          sudo docker stop ${{ env.DOCKER_CONTAINER_NAME }} 2> /dev/null || true &&
+          sudo docker rm ${{ env.DOCKER_CONTAINER_NAME }} 2> /dev/null || true &&
+          sudo docker login ${{ env.DOCKER_REGISTRY }}
+            -u ${{ env.DOCKER_USERNAME }}
+            -p ${{ env.DOCKER_PASSWORD }}
+          2> /dev/null &&
+          sudo docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }} &&
+          sudo docker run
+            -d
+            --name ${{ env.DOCKER_CONTAINER_NAME }}
+            -e SERVER_PORT=${{ env.MY_FEED_SERVER_PORT }}
+            -e SESSION_COOKIE_NAME=${{ env.MY_FEED_COOKIE_NAME }}
+            -e SESSION_COOKIE_SECRET=${{ env.MY_FEED_COOKIE_SECRET }}
+            -p ${{ env.MY_FEED_SERVER_PORT }}:${{ env.MY_FEED_SERVER_PORT }}
+            ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}

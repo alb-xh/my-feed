@@ -24,6 +24,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': 'off',
+    'consistent-return': 'off',
     'react/prop-types': 'off', // Enable this in future
     'import/export': 'off', // Investigate this in future
   },

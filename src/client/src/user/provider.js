@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { ApiClient } from '../apiClient';
+import { UserContext } from './context';
 
-export function useUser() {
+export function UserProvider(props) {
   const [user, setUser] = useState(null);
 
   const getUser = async () => {
@@ -16,5 +17,11 @@ export function useUser() {
     setUser(userData);
   };
 
-  return { user, getUser };
+  const { children } = props;
+  const value = useMemo(() => ({
+    user,
+    getUser,
+  }), [user, useMemo]);
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { getCustomClassName } from '../../helpers';
+import { getCustomClassName, onInputChange } from '../../helpers';
 import { Title, TextInput, Button } from '../../common';
 
 export function Login(props) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <div className={getCustomClassName(props, 'mx-auto table-caption')}>
       <Title
@@ -13,16 +17,21 @@ export function Login(props) {
       <TextInput
         className='my-5'
         label='Username'
+        value={username}
+        onChange={onInputChange(setUsername)}
       />
       <TextInput
         className='my-5'
         label='Password'
+        type='password'
+        value={password}
+        onChange={onInputChange(setPassword)}
       />
       <div className='table-cpation'>
         <Button
           className='m-auto mb-3 border-none font-semibold py-1 px-8 text-white bg-slate-800'
           text='Login'
-          onClick={() => { alert('click!'); }}
+          onClick={() => { alert('Login'); }}
         />
       </div>
       <div className='table-cpation text-center'>
