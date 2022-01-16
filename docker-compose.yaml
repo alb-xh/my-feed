@@ -1,7 +1,7 @@
 version: '3'
 services:
   hello-app:
-    image: ghcr.io/alb-xh/hello-app:master
+    image: ghcr.io/alb-xh/my-feed:master
     environment:
       - SERVER_PORT=3000
     ports:
