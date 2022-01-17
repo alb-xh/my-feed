@@ -65,14 +65,14 @@ jobs:
 
     - name: Deploy to Image to Amazon ECR
     - run: |
-       sudo docker stop my-feed-container 2> /dev/null
-       sudo docker rm my-feed-container 2> /dev/null
-       sudo docker pull ${{ env.REGISTRY }}/alb-xh/${{ env.IMAGE_NAME }}:master
-       sudo build run -d /
-       --name my-feed-container /
-       -e SERVER_PORT=80 /
-       -e SESSION_COOKIE_NAME=my-feed /
-       -e SESSION_COOKIE_SECRET=ipemhjs2 /
-       -p 80:80 /
-       my-feed
+        sudo docker stop my-feed-container 2> /dev/null
+        sudo docker rm my-feed-container 2> /dev/null
+        sudo docker pull ${{ env.REGISTRY }}/alb-xh/${{ env.IMAGE_NAME }}:master
+        sudo build run -d /
+        --name my-feed-container /
+        -e SERVER_PORT=80 /
+        -e SESSION_COOKIE_NAME=my-feed /
+        -e SESSION_COOKIE_SECRET=ipemhjs2 /
+        -p 80:80 /
+        my-feed
 
