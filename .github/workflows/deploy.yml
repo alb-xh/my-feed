@@ -64,7 +64,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Deploy to Image to Amazon ECR
-    - run: |
+      run: |
         sudo docker stop my-feed-container 2> /dev/null
         sudo docker rm my-feed-container 2> /dev/null
         sudo docker pull ${{ env.REGISTRY }}/alb-xh/${{ env.IMAGE_NAME }}:master
