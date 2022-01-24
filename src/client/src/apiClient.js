@@ -1,6 +1,7 @@
 export class ApiClient {
   static get baseUrl() {
-    return new URL(window.location.href).origin;
+    const { origin } = new URL(window.location.href);
+    return `${origin}/api`;
   }
 
   static getUrl(path) {
@@ -8,14 +9,14 @@ export class ApiClient {
   }
 
   static async getUser() {
-    const url = ApiClient.getUrl('/user');
+    const url = ApiClient.getUrl('/users/me');
     const res = await fetch(url);
 
     return res;
   }
 
   static async createUser(user) {
-    const url = ApiClient.getUrl('/user');
+    const url = ApiClient.getUrl('/users');
 
     await fetch(url, {
       method: 'POST',

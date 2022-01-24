@@ -10,7 +10,8 @@ class Sessions {
   }
 
   static async createWithUserId(userId) {
-    await SessionsModel.create(userId, 60 * 60 * 1000);
+    const sessionId = await SessionsModel.create(userId, 60 * 60 * 1000);
+    return sessionId;
   }
 
   static async deleteById(sessionId) {
