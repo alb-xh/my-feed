@@ -7,13 +7,14 @@
     "postinstall": "yarn install-client-dependencies",
     "install-client-dependencies": "cd src/client && yarn",
     "build-client": "cd src/client && yarn build",
+    "build-server": "cd src/server && node scripts/popullateData.js",
     "lint-client": "cd src/client && yarn lint",
     "lint-server": "eslint src/server/**/*.js src/server/**/*.js",
     "lint": "yarn lint-server && yarn lint-client",
     "test-client": "cd src/client && yarn test -- --watchAll=false --passWithNoTests",
     "test-server": "yarn build-client && jest ./src/server",
     "test": "yarn test-client && yarn test-server",
-    "start": "yarn build-client && node src/index.js",
+    "start": "yarn build-client && yarn build-server && node src/index.js",
     "dev": "nodemon --ignore src/client/build/ --exec yarn start"
   },
   "dependencies": {
