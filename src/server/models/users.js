@@ -1,9 +1,9 @@
 const fs = require('fs/promises');
 const path = require('path');
 
-const { generateId } = require('./helpers');
+const { generator } = require('../utils');
 
-const FILE = path.join(__dirname, 'users.json');
+const FILE = path.join(__dirname, '..', 'data', 'users.json');
 
 class Users {
   static async get() {
@@ -11,18 +11,8 @@ class Users {
     return users;
   }
 
-  static async getByUserName(username) {
-    const users = await Users.get();
-    return users.find((user) => user.username === username);
-  }
-
-  static async getById(userId) {
-    const users = await Users.get();
-    return users.find(({ id }) => id === userId);
-  }
-
   static async create(user) {
-    const id = generateId();
+    const id = generator.id();
     const newUser = { ...user, id };
 
     const users = await Users.get();
