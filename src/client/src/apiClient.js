@@ -18,24 +18,38 @@ export class ApiClient {
   static async createUser(user) {
     const url = ApiClient.getUrl('/users');
 
-    await fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
         'Content-Type': 'application/json',
       },
     });
+
+    return res;
   }
 
   static async signIn(user) {
     const url = ApiClient.getUrl('/users/sign-in');
 
-    await fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
         'Content-Type': 'application/json',
       },
     });
+
+    return res;
+  }
+
+  static async signOut() {
+    const url = ApiClient.getUrl('/users/sign-out');
+
+    const res = await fetch(url, {
+      method: 'POST',
+    });
+
+    return res;
   }
 }

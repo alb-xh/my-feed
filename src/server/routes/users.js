@@ -64,8 +64,9 @@ router.post('/sign-out', async (req, res) => {
   const { sessionId } = req;
 
   await SessionsService.deleteById(sessionId);
-
   SessionCookie.clear(res);
+
+  respond(res).ok();
 });
 
 module.exports = router;

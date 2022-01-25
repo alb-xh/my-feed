@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { ApiClient } from '../../apiClient';
 import { useUser } from '../../user';
@@ -10,7 +10,6 @@ export function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { getUser } = useUser();
-  const navigate = useNavigate();
 
   const signInUser = async () => {
     if (!username || !password) return;
@@ -20,14 +19,13 @@ export function Login(props) {
       return;
     }
 
-    try {
-      await ApiClient.signIn({ username, password });
-      await getUser();
-
-      navigate('/');
-    } catch (err) {
-      // console.error(err);
+    const { status } = await ApiClient.signIn({ username, password });
+    if (status >= 300) {
+      alert('Username or password is invalid!');
+      return;
     }
+
+    await getUser();
   };
 
   return (

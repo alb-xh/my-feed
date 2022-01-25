@@ -9,7 +9,7 @@ export function UserProvider(props) {
   const getUser = async () => {
     const res = await ApiClient.getUser();
 
-    if (res.status !== 200) {
+    if (res.status >= 300) {
       setUser(null);
       return;
     }

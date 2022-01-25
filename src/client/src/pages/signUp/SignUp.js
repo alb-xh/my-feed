@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { ApiClient } from '../../apiClient';
 import { getCustomClassName, onInputChange } from '../../helpers';
@@ -11,7 +10,6 @@ export function SignUp(props) {
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
   const { getUser } = useUser();
-  const navigate = useNavigate();
 
   const createUser = async () => {
     if (!username || !password || !rePassword) return null;
@@ -31,14 +29,13 @@ export function SignUp(props) {
       return;
     }
 
-    try {
-      await ApiClient.createUser({ username, password });
-      await getUser();
-
-      navigate('/');
-    } catch (err) {
-      // console.error(err);
+    const { status } = await ApiClient.createUser({ username, password });
+    if (status >= 300) {
+      alert('Something went wrong please try again!');
+      return;
     }
+
+    await getUser();
   };
 
   return (
