@@ -15,7 +15,7 @@
     "test-server": "yarn build-client && jest ./src/server",
     "test": "yarn test-client && yarn test-server",
     "start": "yarn build-client && yarn build-server && node src/index.js",
-    "dev": "nodemon --ignore src/client/build/ --exec yarn start"
+    "dev": "nodemon --ignore src/client/build/ -e js --exec yarn start"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",

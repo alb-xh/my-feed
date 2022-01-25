@@ -27,5 +27,6 @@ module.exports = {
     'consistent-return': 'off',
     'react/prop-types': 'off', // Enable this in future
     'import/export': 'off', // Investigate this in future
+    'no-alert': 'off',
   },
 };
