@@ -26,4 +26,16 @@ export class ApiClient {
       },
     });
   }
+
+  static async signIn(user) {
+    const url = ApiClient.getUrl('/users/sign-in');
+
+    await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 }

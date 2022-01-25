@@ -30,9 +30,11 @@ export function SignUp(props) {
       alert('Passwords don\'t match!');
       return;
     }
+
     try {
       await ApiClient.createUser({ username, password });
       await getUser();
+
       navigate('/');
     } catch (err) {
       // console.error(err);

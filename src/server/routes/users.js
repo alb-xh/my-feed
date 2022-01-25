@@ -49,7 +49,7 @@ router.post('/sign-in', async (req, res) => {
   }
 
   const user = await UsersService.getByUserName(username);
-  if (!user) {
+  if (!user || user.password !== password) {
     respond(res).unauthenticated();
     return;
   }
