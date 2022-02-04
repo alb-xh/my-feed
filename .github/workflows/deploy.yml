@@ -76,7 +76,7 @@ jobs:
           sudo docker run
             -d
             --name ${{ env.DOCKER_CONTAINER_NAME }}
-            -v /srv/www/my-feed-app:/home/app/src/client/public
+            -v /srv/www/my-feed-app:/home/app/src/client/build
             -e SERVER_PORT=${{ env.MY_FEED_SERVER_PORT }}
             -e SESSION_COOKIE_NAME=${{ env.MY_FEED_COOKIE_NAME }}
             -e SESSION_COOKIE_SECRET=${{ env.MY_FEED_COOKIE_SECRET }}
