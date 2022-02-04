@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "yarn install-client-dependencies",
+    "clear-data": "cd src/server && node scripts/popullateData.js",
     "install-client-dependencies": "cd src/client && yarn",
     "build-client": "cd src/client && yarn build",
     "lint-client": "cd src/client && yarn lint",
@@ -14,7 +15,7 @@
     "test-server": "yarn build-client && jest ./src/server",
     "test": "yarn test-client && yarn test-server",
     "start": "yarn build-client && node src/index.js",
-    "dev": "nodemon --ignore src/client/build/ --exec yarn start"
+    "dev": "nodemon --ignore src/client/build/ -e js --exec yarn start"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",

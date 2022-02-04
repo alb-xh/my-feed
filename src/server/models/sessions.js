@@ -1,9 +1,9 @@
 const fs = require('fs/promises');
 const path = require('path');
 
-const { generateId } = require('./helpers');
+const { generator } = require('../utils');
 
-const FILE = path.join(__dirname, 'sessions.json');
+const FILE = path.join(__dirname, '..', 'data', 'sessions.json');
 
 class Sessions {
   static async get() {
@@ -11,18 +11,10 @@ class Sessions {
     return sessions;
   }
 
-  static async getById(sessionId) {
-    const sessions = await Sessions.get();
-    const session = sessions[sessionId];
-
-    if (!session || session.expiresAt < Date.now()) return null;
-    return session.value;
-  }
-
-  static async create(value, ttl = 60 * 60 * 1000) {
+  static async create(value, ttl) {
     const sessions = await Sessions.get();
 
-    const sessionId = generateId();
+    const sessionId = generator.id();
     sessions[sessionId] = {
       expiresAt: Date.now() + ttl,
       value,
