@@ -16,7 +16,7 @@ env:
   DOCKER_IMAGE_TAG: master
   DOCKER_CONTAINER_NAME: my-feed-container
 
-  MY_FEED_SERVER_PORT: 80
+  MY_FEED_SERVER_PORT: 5000
   MY_FEED_COOKIE_NAME: my-feed
   MY_FEED_COOKIE_SECRET: ${{ secrets.MY_FEED_COOKIE_SECRET }}
 
@@ -76,6 +76,7 @@ jobs:
           sudo docker run
             -d
             --name ${{ env.DOCKER_CONTAINER_NAME }}
+            -v /srv/www/my-feed-app:/home/app/src/client/public
             -e SERVER_PORT=${{ env.MY_FEED_SERVER_PORT }}
             -e SESSION_COOKIE_NAME=${{ env.MY_FEED_COOKIE_NAME }}
             -e SESSION_COOKIE_SECRET=${{ env.MY_FEED_COOKIE_SECRET }}
