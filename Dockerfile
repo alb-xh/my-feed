@@ -8,4 +8,6 @@ WORKDIR /home/app
 
 RUN yarn install
 
+RUN yarn run clear-data
+
 CMD ["yarn", "start"]
