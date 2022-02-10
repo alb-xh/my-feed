@@ -9,8 +9,12 @@ const addFile = async (filename, data) => {
 };
 
 const popullateData = async () => {
-  await addFile('users.json', []);
-  await addFile('sessions.json', {});
+  try {
+    await addFile('users.json', []);
+    await addFile('sessions.json', {});
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 popullateData();
